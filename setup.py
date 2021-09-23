@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2020 The github-release-retry Project Authors
+# Copyright (c) nexb Inc., Google Inc., The github-release-retry Project Authors, and others
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,36 +16,31 @@
 
 from pathlib import Path
 
-try:
-    from setuptools import setup, Extension
-except Exception:
-    from distutils.core import setup, Extension
+from setuptools import setup
+from setuptools import find_packages
 
 
 def get_long_description() -> str:
-    readme_path = Path(__file__).parent / "README.md"
+    readme_path = Path(__file__).parent / "README.rst"
     return readme_path.read_text(encoding="utf-8")
 
 
 setup(
-    name="github-release-retry",
-    version="1.0.7",
+    name="relrel",
+    version="2021.1",
     description="A tool for creating GitHub Releases and uploading assets reliably.",
     long_description=get_long_description(),
-    long_description_content_type="text/markdown",
     keywords="GitHub Release Releases reliable retry upload assets",
-    author="The github-release-retry Project Authors",
-    author_email="android-graphics-tools-team@google.com",
-    url="https://github.com/google/github-release-retry",
+    author="nexB Inc. and others",
+    url="https://github.com/nexB/relrel",
     license="Apache License 2.0",
-    packages=["github_release_retry"],
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
     python_requires=">=3.6",
     install_requires=[
-        'dataclasses;python_version=="3.6"',
-        "dataclasses-json",
+        "attrs",
         "requests",
     ],
-    package_data={"github_release_retry": ["py.typed"]},
     classifiers=[
         "Environment :: Console",
         "Intended Audience :: Developers",
@@ -58,13 +53,9 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    project_urls={
-        "Documentation": "https://github.com/google/github-release-retry",
-        "Source": "https://github.com/google/github-release-retry",
-    },
     entry_points={
         "console_scripts": [
-            "github-release-retry = github_release_retry.github_release_retry:main",
+            "relrel = relrel:main",
         ]
     },
 )
